@@ -12,5 +12,6 @@ GPIO.setup(input_pin, GPIO.IN)
 # Main loop
 while True:
     time.sleep(0.5)
+    print(GPIO.input(input_pin))
     if GPIO.input(input_pin):
         print("Input received from GPIO pin {}".format(input_pin))
