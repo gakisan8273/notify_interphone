@@ -35,15 +35,6 @@ def line_message():
         "Content-Type": "application/json",
     }
     message = "インターホンがなりました"
-    payload = {
-        "to": user_id,
-        "messages": [
-            {
-                "type": "text",
-                "text": message,
-            }
-        ]
-    }
     # 環境変数のUSER_IDSでループする
     user_ids = os.getenv('USER_IDS').split(',')
     for user_id in user_ids:
