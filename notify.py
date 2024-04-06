@@ -17,7 +17,7 @@ GPIO.setup(input_pin, GPIO.IN)
 # Main loop
 def main():
     while True:
-        time.sleep(0.5)
+        time.sleep(0.1)
         # Skip if no input received
         if not GPIO.input(input_pin):
             continue
