@@ -25,6 +25,8 @@ def main():
 
         # Send LINE message
         line_message()
+        # Sleep for 30 seconds to avoid multiple notifications
+        time.sleep(30)
 
 # Send LINE message
 def line_message():
