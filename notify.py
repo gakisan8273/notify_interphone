@@ -16,6 +16,7 @@ GPIO.setup(input_pin, GPIO.IN)
 
 # Main loop
 def main():
+    sleep_time_sec = int(os.getenv('SLEEP_TIME_SEC', 30))
     while True:
         time.sleep(0.1)
         # Skip if no input received
@@ -25,8 +26,8 @@ def main():
 
         # Send LINE message
         line_message()
-        # Sleep for 30 seconds to avoid multiple notifications
-        time.sleep(30)
+        # Sleep to avoid multiple notifications
+        time.sleep(sleep_time_sec)
 
 # Send LINE message
 def line_message():
@@ -36,8 +37,7 @@ def line_message():
         "Authorization": "Bearer " + access_token,
         "Content-Type": "application/json",
     }
-    message = "インターホンがなりました"
-    # 環境変数のUSER_IDSでループする
+    # Loop through user_ids
     user_ids = os.getenv('USER_IDS').split(',')
     for user_id in user_ids:
         payload = {
@@ -45,14 +45,14 @@ def line_message():
             "messages": [
                 {
                     "type": "text",
-                    "text": message,
+                    "text": os.getenv('MESSAGE'),
                 }
             ]
         }
         response = requests.post(url, headers=headers, json=payload)
         print("Response:", response.text)
         retry_count = 0
-        # リトライ数が2回まで かつ ステータスコードが200系でない場合はリトライする
+        # Retry 3 times if status code is not 200 series
         while retry_count < 3 and not (200 <= response.status_code < 300):
             response = requests.post(url, headers=headers, json=payload)
             print("Failed to send LINE message: " + response.status_code + ", " + response.text)
