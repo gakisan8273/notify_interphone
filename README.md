@@ -7,6 +7,8 @@ GPIO に入力があったら LINE API で push メッセージを送ります�
 
 **インターホンが鳴ったら LINE に通知する仕組み** としての使用方法を Qiita に書きました。
 
+https://qiita.com/gakisan8273/items/47fc00da4a3b5588f25e
+
 ## 使い方
 
 まず .env を生成してください。
